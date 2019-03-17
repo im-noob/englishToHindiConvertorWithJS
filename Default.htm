@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+   <head>
+      <meta charset="utf-8" />
+      <title>User   &nbsp;</title>
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript">
+         // Load the Google Transliterate API
+         google.load("elements", "1", {
+               packages: "transliteration"
+             });
+         
+         function onLoad() {
+           var options = {
+               sourceLanguage:
+                   google.elements.transliteration.LanguageCode.ENGLISH,
+               destinationLanguage:
+                   [google.elements.transliteration.LanguageCode.HINDI],
+               shortcutKey: 'ctrl+g',
+               transliterationEnabled: true
+           };
+         
+           // Create an instance on TransliterationControl with the required
+           // options.
+           var control =
+               new google.elements.transliteration.TransliterationControl(options);
+         
+           // Enable transliteration in the textbox with id
+           // 'transliterateTextarea'.
+           control.makeTransliteratable(['data']);
+         }
+         google.setOnLoadCallback(onLoad);
+         
+         
+      </script>     
+   </head>
+   <body class="no-skin">
+      <form id="etoh" action="https://editor.indiatyping.com/index.php" target="_new" method="POST">
+      <tr>
+         <td colspan="5">
+            <textarea style="width:100%;max-width:700px;height:200px; border:solid 5px #337ab7;" id="data" class="js-copytextarea" name="data" placeholder="Start Type Here................" autofocus></textarea>
+         </td>
+      </tr>
+   </body>
+</html>
+
