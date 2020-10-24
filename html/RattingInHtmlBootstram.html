@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+  /* Checked start in ratting  */
+  .checkedStar {
+    color: orange;
+    font-size: 950%!important;
+    
+  }
+  .rateStar{
+    font-size: 800%;
+  }
+</style>
+</head>
+<body>
+	<section class="container">
+    	<div class="row">
+          <span class="fa fa-star fa-2x col-2 rateStar" ratebox = "1" id="rating1"></span>
+          <span class="fa fa-star fa-2x col-2 rateStar" ratebox = "2" id="rating2"></span>
+          <span class="fa fa-star fa-2x col-2 rateStar" ratebox = "3" id="rating3"></span>
+          <span class="fa fa-star fa-2x col-2 rateStar" ratebox = "4" id="rating4"></span>
+          <span class="fa fa-star fa-2x col-2 rateStar" ratebox = "5" id="rating5"></span>
+          <span id="overallrating"></span>Star
+      </div>
+    </section>
+<script>
+        $(function(){
+            /* Start rating maker:START */
+            $clickedStar = 0 ;
+
+            //hover over rating 
+            $('.rateStar').hover(function(){
+                $rateboxID = $(this).attr('ratebox');
+                for (let index = 1; index <= $rateboxID; index++) {
+                    $("#rating"+index).addClass('checkedStar');
+                }
+            },function(){
+                //removing start highlighted
+                for (let index = 1; index <= $rateboxID; index++) {
+                    if($clickedStar<index){
+                        $("#rating"+index).removeClass('checkedStar');
+                    }
+                }
+            })
+
+
+            //click on ratting 
+            $('.rateStar').click(function(){
+
+                //remving start form all
+                for (let index = 1; index <= 5; index++) {
+                    $("#rating"+index).removeClass('checkedStar');
+                }
+
+                $rateboxID = $(this).attr('ratebox');
+                $clickedStar = $rateboxID;
+                console.log("#rating"+$rateboxID)
+                for (let index = 1; index <= $rateboxID; index++) {
+                    $("#rating"+index).addClass('checkedStar');
+                }
+                $("#overallrating").text($rateboxID);
+            })
+            /* Start rating maker:STOP */
+
+
+        })
+</script>
+</body>
+</html>
+

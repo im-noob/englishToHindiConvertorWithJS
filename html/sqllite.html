@@ -1,0 +1,91 @@
+<!DOCTYPE HTML> 
+
+<html>  
+   <head> 
+      <meta charset="utf-8">
+       <!-- Include Dexie -->
+      <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+      <script type = "text/javascript"> 
+         
+         var db = new Dexie("cartItem_database");
+
+         function createDB(){
+            //crate DB 
+            db.version(1).stores({
+              cartItems: '++id, name, age' // don't index "picture"
+            })
+
+               console.log("DB Created");
+            
+   
+         }
+
+         function insertRow(){
+            //  insert data
+            db.cartItems.put({
+              name: 'Aarav',
+              age: 25,
+            }).then(function(){
+               console.log("Row Inserted");
+            });
+   
+         }
+
+         function selectRow(){
+            //read 
+            db.cartItems.each(cartItem => console.log(cartItem.id,cartItem.name,cartItem.age)).then(function(){
+               console.log("All row Printed");
+            });
+   
+         }
+         
+
+         function updateRow() {
+            // update for none primay key
+            db.cartItems.where("shoeSize").aboveOrEqual(47).modify({isBigfoot: 1});
+
+            //for primry key
+            db.cartItems.update(2, {name: "Rahul Baba"}).then(function (updated) {
+              if (updated)
+                console.log ("cartItem number 1 was renamed to Number 2");
+              else
+                console.log ("Nothing was updated - there were no cartItem with primary key: 2");
+            });   
+         }
+         
+         function countRow() {
+            // count
+            db.cartItems.count(function(count){
+
+              console.log("No or rows are:"+count);
+            });
+   
+         }
+         
+
+         function deleteRow() {
+            // for delete
+            db.cartItems
+             .where("id").anyOf(2)
+             .delete()
+             .then(function (deleteCount) {
+                 console.log( "Deleted " + deleteCount + " objects");
+             });   
+         }
+         
+         
+         
+
+      </script> 
+   </head> 
+  
+   <body style="background: white">  
+      <input type="button" value="createDB" onclick="createDB();">
+      <input type="button" value="insert" onclick="insertRow();">
+      <input type="button" value="read" onclick="selectRow();">
+      <input type="button" value="update" onclick="updateRow();">
+      <input type="button" value="delete" onclick="deleteRow();">
+      <input type="button" value="count" onclick="countRow();">
+
+   </body> 
+</html>
